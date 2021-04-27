@@ -20,4 +20,4 @@ let mySprite = sprites.create(img`
     `, SpriteKind.Player)
 tiles.setTilemap(tilemap`level1`)
 scene.setBackgroundColor(9)
-mySprite.setPosition(8, 0)
+mySprite.setPosition(8, 71)
