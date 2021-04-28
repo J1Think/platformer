@@ -21,3 +21,6 @@ let mySprite = sprites.create(img`
 tiles.setTilemap(tilemap`level1`)
 scene.setBackgroundColor(9)
 mySprite.setPosition(8, 88)
+controller.moveSprite(mySprite, 100, 100)
+scene.cameraFollowSprite(mySprite)
+mySprite.setStayInScreen(true)
