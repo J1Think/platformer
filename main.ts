@@ -42,6 +42,15 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, 
     info.changeLifeBy(-2)
     game.over(false)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    if (mySprite.vy > 0) {
+        otherSprite.destroy(effects.disintegrate, 500)
+        info.changeScoreBy(1)
+    } else {
+        info.changeLifeBy(-1)
+        pause(1000)
+    }
+})
 let mySprite: Sprite = null
 let jumpcount = 0
 jumpcount = 0
@@ -67,6 +76,56 @@ mySprite = sprites.create(img`
     `, SpriteKind.Player)
 scene.setBackgroundColor(9)
 tiles.setTilemap(tilemap`level3`)
+let koopa_troopa_2 = sprites.create(img`
+    ...1............
+    ..111...........
+    ..1115..........
+    .571155.........
+    .571155.........
+    .571155.........
+    .511155.........
+    5551555.........
+    5e55555.........
+    555.55..77777...
+    55..55.7f777f7..
+    55.555.77f7f777.
+    55.5517777f7117.
+    .5.551777f7f717.
+    ...551f7f777f7f.
+    ..55117f77777f7.
+    ...517f7f777f7f.
+    ...51f777f7f777.
+    ....177777f7777.
+    ....11777f7f7111
+    ...77111f77111..
+    ..7777711111777.
+    .77777......7777
+    `, SpriteKind.Enemy)
+let koopa_troopa = sprites.create(img`
+    ...1............
+    ..111...........
+    ..1115..........
+    .571155.........
+    .571155.........
+    .571155.........
+    .511155.........
+    5551555.........
+    5e55555.........
+    555.55..77777...
+    55..55.7f777f7..
+    55.555.77f7f777.
+    55.5517777f7117.
+    .5.551777f7f717.
+    ...551f7f777f7f.
+    ..55117f77777f7.
+    ...517f7f777f7f.
+    ...51f777f7f777.
+    ....177777f7777.
+    ....11777f7f7111
+    ...77111f77111..
+    ..7777711111777.
+    .77777......7777
+    `, SpriteKind.Enemy)
 let goomba = sprites.create(img`
     . . . . . . 4 4 4 4 . . . . . . 
     . . . . . 4 4 4 4 4 4 . . . . . 
@@ -105,12 +164,18 @@ let goomba2 = sprites.create(img`
     `, SpriteKind.Enemy)
 tiles.placeOnTile(goomba, tiles.getTileLocation(18, 17))
 tiles.placeOnTile(goomba2, tiles.getTileLocation(7, 17))
+tiles.placeOnTile(koopa_troopa, tiles.getTileLocation(37, 17))
+tiles.placeOnTile(koopa_troopa_2, tiles.getTileLocation(40, 17))
 scene.cameraFollowSprite(mySprite)
 goomba.vx = 50
 goomba2.vx = -50
+koopa_troopa.vx = 50
+koopa_troopa_2.vx = 50
 mySprite.setStayInScreen(true)
 goomba.setBounceOnWall(true)
 goomba2.setBounceOnWall(true)
+koopa_troopa.setBounceOnWall(true)
+koopa_troopa_2.setBounceOnWall(true)
 mySprite.setPosition(4, 280)
 mySprite.ay += 200
 controller.moveSprite(mySprite, 100, 0)
