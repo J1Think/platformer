@@ -19,6 +19,47 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, l
     game.splash("Level 2")
     info.changeLifeBy(1)
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile16`, function (sprite, location) {
+    tiles.setTilemap(tilemap`level15`)
+    mySprite.setPosition(4, 280)
+    game.splash("Level 3")
+    info.changeLifeBy(1)
+    bowser = sprites.create(img`
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        55555555555555555555555555555555
+        `, SpriteKind.Enemy)
+    tiles.placeOnTile(bowser, tiles.getTileLocation(97, 16))
+})
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     mySprite.vy = 100
 })
@@ -38,6 +79,38 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, 
     game.splash("Level 2")
     info.changeLifeBy(1)
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
+    tiles.setTilemap(tilemap`level15`)
+    mySprite.setPosition(4, 280)
+    game.splash("Level 3")
+    info.changeLifeBy(1)
+    bowser = sprites.create(img`
+        ...1............
+        ..111...........
+        ..1115..........
+        .571155.........
+        .571155.........
+        .571155.........
+        .511155.........
+        5551555.........
+        5e55555.........
+        555.55..77777...
+        55..55.7f777f7..
+        55.555.77f7f777.
+        55.5517777f7117.
+        .5.551777f7f717.
+        ...551f7f777f7f.
+        ..55117f77777f7.
+        ...517f7f777f7f.
+        ...51f777f7f777.
+        ....177777f7777.
+        ....11777f7f7111
+        ...77111f77111..
+        ..7777711111777.
+        .77777......7777
+        `, SpriteKind.Enemy)
+    tiles.placeOnTile(bowser, tiles.getTileLocation(97, 16))
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
     info.changeLifeBy(-2)
     game.over(false)
@@ -51,6 +124,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
         pause(1000)
     }
 })
+let bowser: Sprite = null
 let mySprite: Sprite = null
 let jumpcount = 0
 jumpcount = 0
