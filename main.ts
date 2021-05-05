@@ -64,7 +64,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile16`, function (sprite, 
         ................1114444444.........
         `, SpriteKind.Enemy)
     tiles.placeOnTile(bowser, tiles.getTileLocation(95, 17))
-    bowser.ay += 200
     bowser.vx = 50
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile20`, function (sprite, location) {
@@ -132,7 +131,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, 
         ......................................
         `, SpriteKind.Enemy)
     tiles.placeOnTile(bowser, tiles.getTileLocation(95, 17))
-    bowser.ay += 200
     bowser.vx = 50
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
