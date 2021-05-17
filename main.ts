@@ -1,6 +1,26 @@
 namespace SpriteKind {
     export const enmey2 = SpriteKind.create()
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile22`, function (sprite, location) {
+    mySprite2 = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Player)
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (jumpcount < 1) {
         mySprite.vy = -141
@@ -11,23 +31,25 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile7`, function (sprite, l
     tiles.setTilemap(tilemap`level5`)
     mySprite.setPosition(4, 280)
     game.splash("Level 2")
-    info.changeLifeBy(1)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, location) {
     tiles.setTilemap(tilemap`level5`)
     mySprite.setPosition(4, 280)
     game.splash("Level 2")
-    info.changeLifeBy(1)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile18`, function (sprite, location) {
     info.changeLifeBy(-2)
     game.over(false)
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile21`, function (sprite, location) {
+    tiles.setTileAt(tiles.getTileLocation(6, 13), assets.tile`myTile22`)
+    tiles.setTileAt(location, assets.tile`myTile`)
+    tiles.setWallAt(location, true)
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile16`, function (sprite, location) {
     tiles.setTilemap(tilemap`level15`)
     mySprite.setPosition(4, 280)
     game.splash("Level 3")
-    info.changeLifeBy(1)
     bowser = sprites.create(img`
         ...................................
         ............111....................
@@ -76,7 +98,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile5`, function (sprite, l
     tiles.setTilemap(tilemap`level5`)
     mySprite.setPosition(4, 280)
     game.splash("Level 2")
-    info.changeLifeBy(-1)
 })
 info.onLifeZero(function () {
     mySprite.destroy(effects.disintegrate, 500)
@@ -86,7 +107,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, 
     tiles.setTilemap(tilemap`level5`)
     mySprite.setPosition(4, 280)
     game.splash("Level 2")
-    info.changeLifeBy(1)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
     tiles.setTilemap(tilemap`level15`)
@@ -147,6 +167,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     }
 })
 let bowser: Sprite = null
+let mySprite2: Sprite = null
 let mySprite: Sprite = null
 let jumpcount = 0
 jumpcount = 0
@@ -275,7 +296,7 @@ koopa_troopa_2.setBounceOnWall(true)
 mySprite.setPosition(4, 280)
 mySprite.ay += 200
 controller.moveSprite(mySprite, 100, 0)
-info.setLife(2)
+info.setLife(1)
 info.setScore(0)
 info.startCountdown(200)
 game.splash("Level 1")
