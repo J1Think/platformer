@@ -1,26 +1,6 @@
 namespace SpriteKind {
     export const enmey2 = SpriteKind.create()
 }
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile22`, function (sprite, location) {
-    mySprite2 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Player)
-})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (jumpcount < 1) {
         mySprite.vy = -141
@@ -42,7 +22,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile18`, function (sprite, 
     game.over(false)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile21`, function (sprite, location) {
-    tiles.setTileAt(tiles.getTileLocation(6, 13), assets.tile`myTile22`)
+    tiles.setTileAt(tiles.getTileLocation(6, 13), assets.tile`myTile23`)
     tiles.setTileAt(location, assets.tile`myTile`)
     tiles.setWallAt(location, true)
 })
@@ -108,6 +88,29 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, 
     mySprite.setPosition(4, 280)
     game.splash("Level 2")
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile23`, function (sprite, location) {
+    mySprite.setImage(img`
+        ..................
+        ..................
+        ....22222.........
+        ...222222222......
+        ...eeeddfd........
+        ..ededddfddd......
+        ..edeedddeddd.....
+        ..eeddddeeee......
+        ....ddddddd.......
+        ...282228..f......
+        ...882222211......
+        ..c888222211d.....
+        5bcc88858..fe2....
+        5bcc8888888ee22...
+        ..ff8888888eff22..
+        .f55f222222f55f2..
+        .f55fbbbbbbf55fb..
+        ..ff........ff....
+        `)
+    tiles.setTilemap(tilemap`level19`)
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
     tiles.setTilemap(tilemap`level15`)
     mySprite.setPosition(4, 280)
@@ -167,7 +170,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     }
 })
 let bowser: Sprite = null
-let mySprite2: Sprite = null
 let mySprite: Sprite = null
 let jumpcount = 0
 jumpcount = 0
