@@ -8,6 +8,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile7`, function (sprite, location) {
+    info.startCountdown(60)
     tiles.setTilemap(tilemap`level5`)
     mySprite.setPosition(4, 280)
     game.splash("Level 2")
@@ -65,8 +66,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile16`, function (sprite, 
         .................114411141114444...
         ................1114444444.........
         `, SpriteKind.Enemy)
-    tiles.placeOnTile(bowser, tiles.getTileLocation(95, 17))
-    bowser.vx = 50
+    tiles.placeOnTile(bowser, tiles.getTileLocation(93, 15))
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile20`, function (sprite, location) {
     game.over(true, effects.confetti)
@@ -153,8 +153,11 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, 
         ......................................
         ......................................
         `, SpriteKind.Enemy)
-    tiles.placeOnTile(bowser, tiles.getTileLocation(95, 17))
+    bowser.setBounceOnWall(true)
+    tiles.placeOnTile(bowser, tiles.getTileLocation(93, 15))
     bowser.vx = 50
+    bowser.ay += 700
+    info.startCountdown(60)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
     info.changeLifeBy(-2)
@@ -300,7 +303,7 @@ mySprite.ay += 200
 controller.moveSprite(mySprite, 100, 0)
 info.setLife(1)
 info.setScore(0)
-info.startCountdown(200)
+info.startCountdown(60)
 game.splash("Level 1")
 forever(function () {
     if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
