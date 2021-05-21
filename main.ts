@@ -7,7 +7,31 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
     info.changeScoreBy(1)
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-	
+    if (fire_ball) {
+        projectile = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . . . . 2 2 . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Projectile)
+        projectile.setPosition(mySprite.x, mySprite.y)
+        projectile.vx = 100
+        projectile.ay = 100
+        projectile.lifespan = 1600
+        projectile.setBounceOnWall(true)
+    }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile22`, function (sprite, location) {
     info.changeLifeBy(1)
@@ -37,13 +61,16 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile18`, function (sprite, 
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile21`, function (sprite, location) {
     tiles.setTileAt(location, assets.tile`myTile`)
     tiles.setWallAt(location, true)
-    tiles.setTileAt(tiles.getTileLocation(6, 13), assets.tile`myTile22`)
+    if (info.life() < 2) {
+        tiles.setTileAt(tiles.getTileLocation(6, 13), assets.tile`myTile22`)
+    } else {
+        tiles.setTileAt(tiles.getTileLocation(6, 13), assets.tile`myTile26`)
+    }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile16`, function (sprite, location) {
     tiles.setTilemap(tilemap`level15`)
     mySprite.setPosition(4, 280)
     game.splash("Level 3")
-    info.changeLifeBy(1)
     bowser = sprites.create(img`
         ......................................
         ............111.......................
@@ -107,6 +134,9 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile10`, function (sprite, 
     mySprite.setPosition(4, 280)
     game.splash("Level 2")
 })
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
+    otherSprite.destroy(effects.disintegrate, 500)
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile23`, function (sprite, location) {
     mySprite.setImage(img`
         ..................
@@ -134,7 +164,6 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, 
     tiles.setTilemap(tilemap`level15`)
     mySprite.setPosition(4, 280)
     game.splash("Level 3")
-    info.changeLifeBy(1)
     bowser = sprites.create(img`
         ......................................
         ............111.......................
@@ -183,12 +212,18 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, 
     game.over(false)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile26`, function (sprite, location) {
-    projectile = true
+    fire_ball = true
+    info.changeLifeBy(1)
+    tiles.setTileAt(location, assets.tile`myTile19`)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile28`, function (sprite, location) {
     tiles.setTileAt(location, assets.tile`myTile`)
     tiles.setWallAt(location, true)
-    tiles.setTileAt(tiles.getTileLocation(38, 13), assets.tile`myTile26`)
+    if (info.life() < 2) {
+        tiles.setTileAt(tiles.getTileLocation(38, 13), assets.tile`myTile22`)
+    } else {
+        tiles.setTileAt(tiles.getTileLocation(38, 13), assets.tile`myTile26`)
+    }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (mySprite.vy > 0) {
@@ -197,10 +232,12 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     } else {
         info.changeLifeBy(-1)
         pause(1000)
+        fire_ball = false
     }
 })
-let projectile = false
 let bowser: Sprite = null
+let projectile: Sprite = null
+let fire_ball = false
 let mySprite: Sprite = null
 let jumpcount = 0
 jumpcount = 0
@@ -333,6 +370,7 @@ info.setLife(1)
 info.setScore(0)
 info.startCountdown(60)
 game.splash("Level 1")
+fire_ball = false
 forever(function () {
     if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
         jumpcount = 0
@@ -381,7 +419,26 @@ forever(function () {
             ...eeee....eeee...
             ..................
             `)
-    } else {
-    	
+    } else if (info.life() < 4) {
+        mySprite.setImage(img`
+            ..................
+            ......11112.......
+            .....111111111....
+            .....eeeddfd......
+            ....ededddfddd....
+            ....edeedddeddd...
+            ....eeddddeeee....
+            ......ddddddd.....
+            .....11211211.....
+            ....1112112111....
+            ...111122221111...
+            ...dd12522521dd...
+            ...ddd222222ddd...
+            ...dd22222222dd...
+            .....222..222.....
+            ....eee....eee....
+            ...eeee....eeee...
+            ..................
+            `)
     }
 })
